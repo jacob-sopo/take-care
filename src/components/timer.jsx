@@ -74,30 +74,23 @@ const Timer = ({ endDate }) => {
   }, [timeLeft]);
 
   return (
-    <div className="Countdown">
-      <span className="Countdown-col">
-        <span className="Countdown-col-element">
-          <strong>{addLeadingZeros(timeLeft.days)}</strong>
-          <span>{timeLeft.days === 1 ? "Day" : "Days"}</span>
-        </span>
-      </span>
-
-      <span className="Countdown-col">
-        <span className="Countdown-col-element">
+    <div className={styles.countdown}>
+      <span className={styles.countdownCol}>
+        <span className={styles.countdownColElement}>
           <strong>{addLeadingZeros(timeLeft.hours)}</strong>
           <span>Hours</span>
         </span>
       </span>
 
-      <span className="Countdown-col">
-        <span className="Countdown-col-element">
+      <span className={styles.countdownCol}>
+        <span className={styles.countdownColElement}>
           <strong>{addLeadingZeros(timeLeft.min)}</strong>
           <span>Min</span>
         </span>
       </span>
 
-      <span className="Countdown-col">
-        <span className="Countdown-col-element">
+      <span className={styles.countdownCol}>
+        <span className={styles.countdownColElement}>
           <strong>{addLeadingZeros(timeLeft.sec)}</strong>
           <span>Sec</span>
         </span>

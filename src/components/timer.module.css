@@ -1,7 +1,19 @@
-.timer {
-  color: blue;
+.countdown {
+  margin: 10px auto;
+  padding-bottom: 20px;
 }
 
-.random {
-  background-color: yellow;
+.countdownCol {
+  display: inline-block;
+}
+
+.countdownColElement {
+  display: inline-block;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.countdownColElement strong {
+  font-size: 50px;
 }
