@@ -11,8 +11,10 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 900,
     height: 680,
-    webPreferences: { nodeIntegration: true }
+    webPreferences: { nodeIntegration: true },
+    icon: path.join(__dirname, "../src/assets/img/redCat.png")
   });
+
   mainWindow.loadURL(
     isDev
       ? "http://localhost:3000"

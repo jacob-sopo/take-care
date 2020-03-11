@@ -94,7 +94,6 @@ const Timer = ({ endDate, resetTimer }) => {
 
   return (
     <div className={styles.countdown}>
-      <button onClick={() => setProgress()}>progress</button>
       <span className={styles.countdownCol}>
         <span className={styles.countdownColElement}>
           <strong>
