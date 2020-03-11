@@ -3,6 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "main": "public/electron.js",
+  "build": {
+    "appId": "com.electron.takecare",
+    "productName": "takecare",
+    "copyright": "Copyright © 2020 @sopo",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "assets/img/redCat.png"
+    },
+    "win": {
+      "icon": "assets/img/redCat.png"
+    },
+    "files": [
+      "node_modules/**/*",
+      "package.json",
+      "build/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -19,7 +39,10 @@
     "build": "rescripts build",
     "test": "rescripts test",
     "eject": "react-scripts eject",
-    "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
+    "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "postinstall": "electron-builder install-app-deps",
+    "pre-electron-pack": "yarn build",
+    "electron-pack": "electron-builder build --dir --windows"
   },
   "eslintConfig": {
     "extends": "react-app"
