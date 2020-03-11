@@ -22,18 +22,25 @@ const Dashboard = () => {
   const [showTimer, setShowTimer] = useState(false);
 
   return (
-    <div className={styles.root}>
-      {!showTimer && (
-        <button className={styles.button} onClick={() => setShowTimer(true)}>
-          Start session
-        </button>
-      )}
-      {showTimer && (
-        <Timer
-          endDate={new Date().addMinutes(1)}
-          resetTimer={() => setShowTimer(false)}
-        />
-      )}
+    <div className={styles.center}>
+      <div className={styles.frostedGlass}>
+        <div className={styles.center}>
+          {!showTimer && (
+            <button
+              className={styles.button}
+              onClick={() => setShowTimer(true)}
+            >
+              Start session
+            </button>
+          )}
+          {showTimer && (
+            <Timer
+              endDate={new Date().addMinutes(1)}
+              resetTimer={() => setShowTimer(false)}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 };
