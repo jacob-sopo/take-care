@@ -22,7 +22,9 @@
   }
 }
 
-$color: #fff0f5;
+.container {
+  width: 100%;
+}
 
 .button {
   width: 60%;
@@ -37,6 +39,8 @@ $color: #fff0f5;
   transition: all 0.3s;
   position: relative;
   overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   z-index: 1;
   &:after {
     content: "";
@@ -56,13 +60,20 @@ $color: #fff0f5;
     left: 0;
     width: 0%;
     height: 100%;
-    background-color: darken($color, 35%);
+    background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(#f7797d),
+      to(#fbd786)
+    );
     transition: all 0.3s;
     border-radius: 6rem;
     z-index: -1;
   }
   &:hover {
-    color: $color;
+    color: white;
+    text-shadow: 2px 2px #adacac;
     &:before {
       width: 100%;
     }

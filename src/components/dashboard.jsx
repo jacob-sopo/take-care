@@ -24,7 +24,7 @@ const Dashboard = () => {
   return (
     <div className={styles.center}>
       <div className={styles.frostedGlass}>
-        <div className={styles.center}>
+        <div className={`${styles.center} ${styles.container}`}>
           {!showTimer && (
             <button
               className={styles.button}
