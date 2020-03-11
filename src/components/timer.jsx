@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import styles from "./timer.module.css";
+import React, { useState, useEffect, useRef } from "react";
+import styles from "./timer.module.scss";
+const remote = window.require("electron").remote;
 
-const Timer = ({ endDate }) => {
+const Timer = ({ endDate, resetTimer }) => {
   // initialize timeLeft with the seconds prop
   const [timeLeft, setTimeLeft] = useState({
     hours: 0,
@@ -9,10 +10,19 @@ const Timer = ({ endDate }) => {
     seconds: 0
   });
 
-  let interval;
+  const setProgress = value => {
+    win.setProgressBar(value);
+  };
 
+  let originalDiff = useRef(0);
   function calculateCountdown(endDate) {
     let diff = (Date.parse(new Date(endDate)) - Date.parse(new Date())) / 1000;
+    if (originalDiff.current === 0) {
+      originalDiff.current = diff;
+    }
+
+    var calcDiff = 1 - diff / originalDiff.current;
+    setProgress(calcDiff);
 
     // clear countdown when date is reached
     if (diff <= 0) return false;
@@ -21,8 +31,8 @@ const Timer = ({ endDate }) => {
       years: 0,
       days: 0,
       hours: 0,
-      min: 0,
-      sec: 0
+      minutes: 0,
+      seconds: 0
     };
 
     // calculate time difference between now and expected date
@@ -42,17 +52,13 @@ const Timer = ({ endDate }) => {
       diff -= timeLeft.hours * 3600;
     }
     if (diff >= 60) {
-      timeLeft.min = Math.floor(diff / 60);
-      diff -= timeLeft.min * 60;
+      timeLeft.minutes = Math.floor(diff / 60);
+      diff -= timeLeft.minutes * 60;
     }
-    timeLeft.sec = diff;
+    timeLeft.seconds = diff;
 
     return timeLeft;
   }
-
-  const stopInternval = () => {
-    clearInterval(interval);
-  };
 
   function addLeadingZeros(value) {
     value = String(value);
@@ -63,35 +69,55 @@ const Timer = ({ endDate }) => {
   }
 
   useEffect(() => {
-    interval = setInterval(() => {
-      const date = calculateCountdown(endDate);
-      if (date) {
+    console.log("use effect");
+
+    if (timeLeft !== false) {
+      setTimeout(() => {
+        const date = calculateCountdown(endDate);
         setTimeLeft(date);
-      } else {
-        stopInternval();
-      }
-    }, 1000);
-  }, [timeLeft]);
+        if (date === false) {
+          console.log("notification");
+          new Notification("Stretch time!!", {
+            body: "Time to stretch boy!"
+          });
+          resetTimer();
+          setProgress(10);
+          setTimeout(() => {
+            setProgress(-1);
+          }, 5000);
+        }
+      }, 1000);
+    }
+  }, [timeLeft, endDate, resetTimer]);
+
+  const win = remote.getCurrentWindow();
 
   return (
     <div className={styles.countdown}>
+      <button onClick={() => setProgress()}>progress</button>
       <span className={styles.countdownCol}>
         <span className={styles.countdownColElement}>
-          <strong>{addLeadingZeros(timeLeft.hours)}</strong>
+          <strong>
+            {timeLeft.hours ? addLeadingZeros(timeLeft.hours) : "00"}
+          </strong>
           <span>Hours</span>
         </span>
       </span>
 
       <span className={styles.countdownCol}>
         <span className={styles.countdownColElement}>
-          <strong>{addLeadingZeros(timeLeft.min)}</strong>
+          <strong>
+            {timeLeft.minutes ? addLeadingZeros(timeLeft.minutes) : "00"}
+          </strong>
           <span>Min</span>
         </span>
       </span>
 
       <span className={styles.countdownCol}>
         <span className={styles.countdownColElement}>
-          <strong>{addLeadingZeros(timeLeft.sec)}</strong>
+          <strong>
+            {timeLeft.seconds ? addLeadingZeros(timeLeft.seconds) : "00"}
+          </strong>
           <span>Sec</span>
         </span>
       </span>
