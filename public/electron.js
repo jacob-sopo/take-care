@@ -15,11 +15,18 @@ function createWindow() {
     icon: path.join(__dirname, "../src/assets/img/redCat.png")
   });
 
-  mainWindow.loadURL(
-    isDev
-      ? "http://localhost:3000"
-      : `file://${path.join(__dirname, "../build/index.html")}`
-  );
+  if (process.env.REACT_APP_PP === "true") {
+    mainWindow.loadURL(
+      "https://azwebapp-profilepagesfrontend-dev-001.azurewebsites.net"
+    );
+  } else {
+    mainWindow.loadURL(
+      isDev
+        ? "http://localhost:3000"
+        : `file://${path.join(__dirname, "../build/index.html")}`
+    );
+  }
+
   if (isDev) {
     // Open the DevTools.
     //BrowserWindow.addDevToolsExtension('<location to your react chrome extension>');

@@ -40,6 +40,7 @@
     "test": "rescripts test",
     "eject": "react-scripts eject",
     "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pp": "cross-env REACT_APP_PP=true electron .",
     "postinstall": "electron-builder install-app-deps",
     "pre-electron-pack": "yarn build",
     "electron-pack": "electron-builder build --dir --windows"
