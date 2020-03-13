@@ -42,6 +42,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   z-index: 1;
+  &:focus {
+    outline: none;
+  }
   &:after {
     content: "";
     position: absolute;
